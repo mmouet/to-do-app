@@ -223,30 +223,32 @@ const getStorage = () => {
             	const placeholderText = response.data[i].title;
     	    	todos.push(placeholderText);
         	};
-		localStorage.setItem("todos", JSON.stringify(todos));
+			localStorage.setItem("todos", JSON.stringify(todos));
+
+	    	todos.forEach(function(storage) {
+				const todoDiv = document.createElement("div");
+				todoDiv.classList.add("todo-div");
+
+				// create li new note
+				const newNote = document.createElement("li");
+				newNote.innerText = storage;
+				newNote.classList.add("todo-note");
+				todoDiv.appendChild(newNote);
+
+				// create delete button
+				const delButton = document.createElement("button");
+				delButton.innerText = "delete"
+				delButton.classList.add("del-btn")
+				delButton.classList.add("btn");
+				delButton.classList.add("btn-danger");;
+				todoDiv.appendChild(delButton);
+
+				// append to list
+				todoList.appendChild(todoDiv);
+			});
         });
 
-    	todos.forEach(function(storage) {
-			const todoDiv = document.createElement("div");
-			todoDiv.classList.add("todo-div");
 
-			// create li new note
-			const newNote = document.createElement("li");
-			newNote.innerText = storage;
-			newNote.classList.add("todo-note");
-			todoDiv.appendChild(newNote);
-
-			// create delete button
-			const delButton = document.createElement("button");
-			delButton.innerText = "delete"
-			delButton.classList.add("del-btn")
-			delButton.classList.add("btn");
-			delButton.classList.add("btn-danger");;
-			todoDiv.appendChild(delButton);
-
-			// append to list
-			todoList.appendChild(todoDiv);
-		});
 	} else {
 		// if todos are there, get array
 		let todos = JSON.parse(localStorage.getItem("todos"));
